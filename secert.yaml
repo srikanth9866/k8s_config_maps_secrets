@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcatpod
+  labels:
+    app: dockerhub
+spec:
+  containers:
+  - name: tom-cont
+    image: tomcat
+    env:
+    - name: fristname
+      valueFrom:
+        secretKeyRef:
+          name: tomcat-secret
+          key: fristname
+    command: [ "sh", "-c", "echo the app is running! && sleep 3600" ]
+  # kubectl create secret generic tomcat-secret   --from-literal=fristname=srikanth
+  #  12  k get secret
+  # 13  vim pod.yaml
+  # 14  kubectl apply -f pod.yaml 
+  # 15  k get po
+  # 16  k describe po tomcatpod 
+  # 17  k get secret
+  # 18  k get po
+  #  19  cat pod.yaml 
+  #   20  kubectl create secret generic tomcat-secret   --from-literal=fristname=srikanth --dry-run=client -o yaml > secret.yaml
+  #  21  ll
+  #  22  cat secret.yaml 
+  #  23  cat pod.yaml

@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcatpod
+  labels:
+    app: dockerhub
+
+spec:
+  containers:
+  - name: tom-cont
+    image: tomcat
+    env:
+    - name: fristname
+      valueFrom:
+        configMapKeyRef:
+          name: app-cm
+          key: firstname
+    command: [ 'sh', '-c', 'echo The app is running! && sleep 3600' ]
